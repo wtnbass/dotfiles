@@ -1,0 +1,3 @@
+# dotfiles
+
+Use chezmoi.
