@@ -16,3 +16,6 @@ alias ls="eza -h --git --icons"
 alias ll="ls -l"
 alias la="ls -a"
 alias lla="ls -la"
+
+alias t="tmux"
+alias cz="chezmoi"
