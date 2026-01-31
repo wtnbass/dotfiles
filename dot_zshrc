@@ -1,0 +1,18 @@
+eval "$(~/.local/bin/mise activate zsh)"
+eval "$(starship init zsh)"
+eval "$(sheldon source)"
+eval "$(git wt --init zsh)"
+
+autoload -U compinit && compinit
+zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+source <(carapace _carapace)
+
+export PATH="$HOME/.bun/bin:$PATH"
+export PATH="$HOME/dotfiles/bin:$PATH"
+export EDITOR="hx"
+export VISUAL="hx"
+
+alias ls="eza -h --git --icons" 
+alias ll="ls -l"
+alias la="ls -a"
+alias lla="ls -la"

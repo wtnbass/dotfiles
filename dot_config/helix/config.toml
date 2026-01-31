@@ -1,0 +1,31 @@
+theme = "kanagawa_transparent"
+
+[editor]
+line-number = "relative"
+cursorline = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+git-ignore = true
+
+[editor.statusline]
+left = ["mode", "spinner", "file-name", "diagnostics"]
+center = []
+right = ["selections", "position", "file-encoding", "file-line-ending", "file-type"]
+
+[keys.normal]
+"space" = { "space" = ":reload-all" }
+
+[keys.insert]
+"C-f" = "move_char_right"
+"C-b" = "move_char_left"
+"C-p" = "move_line_up"
+"C-n" = "move_line_down"
+"C-a" = "goto_line_start"
+"C-e" = "goto_line_end"
+tab = "insert_tab"
