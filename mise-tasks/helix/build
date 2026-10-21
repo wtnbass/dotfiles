@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+#MISE description="mattwparas/helix (steel-event-system) をビルドしてインストールする"
+#USAGE flag "-u --update" help="ビルド前にソースを最新にする"
+#USAGE flag "-f --force" help="インストール済みのリビジョンと同じでもビルドする"
+set -euo pipefail
+
+repo="https://github.com/mattwparas/helix.git"
+branch="steel-event-system"
+# ビルドにしか使わないので、消えても取り直せるキャッシュに置く
+src="${XDG_CACHE_HOME:-$HOME/.cache}/helix-steel"
+
+if [[ ! -d "$src/.git" ]]; then
+  git clone --branch "$branch" "$repo" "$src"
+elif [[ "${usage_update:-false}" == true ]]; then
+  git -C "$src" pull --ff-only
+fi
+
+rev="$(git -C "$src" rev-parse --short=8 HEAD)"
+
+# hx --version は "helix 25.07.1 (df595c7d)" のようにビルド元のコミットを含む
+if [[ "${usage_force:-false}" != true ]] && command -v hx >/dev/null && hx --version | grep -q "($rev)"; then
+  echo "helix ($rev) はインストール済みなのでスキップ"
+  exit 0
+fi
+
+cd "$src"
+# steel / steel-language-server / forge と、steel 機能付きの hx をまとめて cargo install する
+cargo xtask steel
+
+rsync -a "$src/runtime/" "$HOME/.config/helix/runtime/"
+hx --grammar fetch
+hx --grammar build

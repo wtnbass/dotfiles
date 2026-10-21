@@ -1,0 +1,5 @@
+font-family=UDEV Gothic NF
+font-thicken = true
+macos-option-as-alt=left
+
+keybind = ¥=text:\x5c

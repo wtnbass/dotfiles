@@ -1,0 +1,74 @@
+# mise bootstrap 用の設定
+#   新しいマシンでは: mise bootstrap --from <このリポジトリの URL>
+#   手元で適用する場合: mise trust && mise bootstrap
+
+# タスクから cargo install / claude で入れたコマンドを使う
+[env]
+_.path = ["~/.cargo/bin", "~/.local/bin"]
+
+[bootstrap.brew.taps]
+"fayazara/tap" = "https://github.com/fayazara/homebrew-tap.git"
+"kitlangton/tap" = "https://github.com/kitlangton/homebrew-tap.git"
+"olets/tap" = "https://github.com/olets/homebrew-tap.git"
+"typewhisper/tap" = "https://github.com/typewhisper/homebrew-tap.git"
+
+[bootstrap.packages]
+"brew:bat" = {}
+"brew:crit" = {}
+"brew:eza" = {}
+"brew:fd" = {}
+"brew:fzf" = {}
+"brew:gh" = {}
+"brew:git" = {}
+"brew:herdr" = {}
+"brew:jq" = {}
+"brew:lazygit" = {}
+"brew:mise" = {}
+"brew:pure" = {}
+"brew:ripgrep" = {}
+"brew:timg" = {}
+"brew:tmux" = {}
+"brew:yazi" = {}
+"brew:zoxide" = {}
+"brew:zsh-autosuggestions" = {}
+"brew:zsh-syntax-highlighting" = {}
+"brew:kitlangton/tap/ghui" = {}
+"brew:olets/tap/zsh-abbr" = {}
+"brew-cask:azookey" = {}
+"brew-cask:font-udev-gothic-nf" = {}
+"brew-cask:ghostty" = {}
+"brew-cask:karabiner-elements" = {}
+"brew-cask:raycast" = {}
+"brew-cask:fayazara/tap/screendrop" = {}
+"brew-cask:sequel-ace" = {}
+"brew-cask:typewhisper/tap/typewhisper" = {}
+"brew-cask:visual-studio-code" = {}
+
+[dotfiles]
+"~/.zshrc" = { source = "zsh/.zshrc" }
+"~/.zshenv" = { source = "zsh/.zshenv" }
+"~/.zprofile" = { source = "zsh/.zprofile" }
+"~/.config/zsh-abbr/user-abbreviations" = { source = "zsh/user-abbreviations" }
+"~/.config/git/config" = { source = "git/config" }
+"~/.config/git/ignore" = { source = "git/ignore" }
+"~/.config/ghostty/config" = { source = "ghostty/config" }
+"~/.config/lazygit/config.yml" = { source = "lazygit/config.yml" }
+"~/.config/tmux/tmux.conf" = { source = "tmux/tmux.conf" }
+# Karabiner-Elements は karabiner.json を置き換えて保存するので、ディレクトリごとリンクする
+"~/.config/karabiner" = { source = "karabiner" }
+"~/.config/mise/config.toml" = { source = "mise-global/config.toml" }
+# runtime/ はビルドで生成するので、ファイル単位でリンクする
+"~/.config/helix" = { source = "helix", mode = "symlink-each" }
+"~/.config/herdr" = { source = "herdr", mode = "symlink-each" }
+"~/.claude" = { source = "claude", mode = "symlink-each" }
+
+[bootstrap.hooks]
+pre-tools = "[ -x ~/.local/bin/claude ] || curl -fsSL https://claude.ai/install.sh | bash"
+
+[tasks.bootstrap]
+description = "毎回の bootstrap の最後に実行される後処理"
+run = [
+  { task = "helix:build" },
+  { task = "helix:plugins" },
+  { task = "vscode:extensions" },
+]

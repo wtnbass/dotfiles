@@ -1,0 +1,4 @@
+.DS_Store
+# Karabiner-Elements が書き込むもの
+karabiner/automatic_backups/
+karabiner/assets/

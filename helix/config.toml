@@ -1,0 +1,95 @@
+theme = "catppuccin_mocha"
+
+[editor]
+line-number = "relative"
+cursorline = true
+bufferline = "multiple"
+color-modes = true
+true-color = true
+auto-save = true
+
+indent-guides.render = true
+end-of-line-diagnostics = "hint"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+git-ignore = true
+
+[editor.soft-wrap]
+enable = true
+max-wrap = 25
+max-indent-retain = 0
+wrap-indicator = ""
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
+
+# Using statusline.scm now.
+#
+# [editor.statusline]
+# left = ["mode", "spinner", "file-name", "read-only-indicator", "file-modification-indicator"]
+# center = []
+# right = ["diagnostics", "selections", "register", "file-type", "position", "position-percentage"]
+# separator = "│"
+# mode.normal = "NORMAL"
+# mode.insert = "INSERT"
+# mode.select = "SELECT"
+
+[keys.normal]
+C-j = [
+  "move_visual_line_down",
+  "move_visual_line_down",
+  "move_visual_line_down",
+  "move_visual_line_down",
+  "move_visual_line_down",
+]
+C-k = [
+  "move_visual_line_up",
+  "move_visual_line_up",
+  "move_visual_line_up",
+  "move_visual_line_up",
+  "move_visual_line_up",
+]
+C-d = ":half-page-down-smooth"
+C-u = ":half-page-up-smooth"
+C-b = ":page-up-smooth"
+C-f = ":page-down-smooth"
+pageup = ":page-up-smooth"
+pagedown = ":page-down-smooth"
+H = "goto_previous_buffer"
+L = "goto_next_buffer"
+space.space = ":reload-all"
+# space.e = ":forest-open"
+# space.E = ":forest-close"
+space.e = ":histone-focus tree"
+space.E = ":histone-toggle tree"
+space.x = ":buffer-close"
+space.X = ":buffer-close!"
+space.C-e = [
+  ':sh rm -f /tmp/unique-file-h21a434',
+  ':insert-output yazi "%{buffer_name}" --chooser-file=/tmp/unique-file-h21a434',
+  ':sh printf "\x1b[?1049h\x1b[?2004h" > /dev/tty',
+  ':open %sh{cat /tmp/unique-file-h21a434}',
+  ':redraw',
+]
+# ret.a = ":acp-toggle"
+# ret.s = ":acp-add-selection"
+ret.a = ":histone-toggle agent"
+ret.s = ":histone-agent-add-selection"
+ret.t = ":histone-toggle terminal"
+ret.b = ":echo %sh{git blame -L %{cursor_line},+1 %{buffer_name}}"
+Z.Z = ":write-quit-all"
+"@" = "@/<C-r>.<ret>"
+
+[keys.insert]
+C-f = "move_char_right"
+C-b = "move_char_left"
+C-n = "move_visual_line_down"
+C-p = "move_visual_line_up"
+C-a = "goto_line_start"
+C-e = ["goto_line_end", "move_char_right"]

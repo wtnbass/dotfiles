@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+#MISE description="VS Code の拡張機能を入れる"
+set -euo pipefail
+
+extensions=(
+  anthropic.claude-code
+  dbaeumer.vscode-eslint
+  eamodio.gitlens
+  mhutchie.git-graph
+  oxc.oxc-vscode
+)
+
+if ! command -v code >/dev/null; then
+  echo "code コマンドがないのでスキップ"
+  exit 0
+fi
+
+installed="$(code --list-extensions)"
+for ext in "${extensions[@]}"; do
+  grep -qix "$ext" <<<"$installed" || code --install-extension "$ext"
+done

@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+#MISE description="cog.scm の steel プラグインをすべて入れて最新にする"
+#USAGE arg "[plugin]" help="指定したプラグインだけを更新する（依存も取り直す）"
+set -euo pipefail
+
+cog="$HOME/.config/helix/cog.scm"
+
+if [[ -n "${usage_plugin:-}" ]]; then
+  url="$(sed -n "s/.*#:name ${usage_plugin} #:git-url \"\([^\"]*\)\".*/\1/p" "$cog")"
+  if [[ -z "$url" ]]; then
+    echo "${usage_plugin} は $cog に書かれていない" >&2
+    exit 1
+  fi
+  forge pkg install --git "$url" --force
+else
+  # forge build は #:git-url の依存をすべて pull するので、更新も兼ねる
+  (cd "$(dirname "$cog")" && forge build)
+fi
+
+# forge は git pull の失敗を無視するので、各プラグインの実際のコミットを表示する
+for d in "$HOME"/.local/share/steel/cogs/*/.git; do
+  d="${d%/.git}"
+  printf '%-20s ' "${d##*/}"
+  git -C "$d" log -1 --format='%h %cd %s' --date=short
+done

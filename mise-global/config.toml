@@ -1,0 +1,27 @@
+[settings]
+npm.package_manager = "pnpm"
+# プロジェクトの .node-version / .nvmrc / rust-toolchain.toml に従う
+idiomatic_version_file_enable_tools = ["node", "rust"]
+
+[tools]
+node = "lts"
+pnpm = "latest"
+python = "3.14"
+rust = "stable"
+# mise bootstrap がサードパーティ tap の cask 定義を読むのに Ruby 3 以上が要る
+ruby = "latest"
+"cargo:https://github.com/wtnbass/miel" = "branch:main"
+"npm:@agentclientprotocol/claude-agent-acp" = "latest"
+"npm:@iwe-org/iwe" = "latest"
+"npm:@microsoft/compose-language-service" = "latest"
+"npm:bash-language-server" = "latest"
+"npm:dockerfile-language-server-nodejs" = "latest"
+"npm:intelephense" = "latest"
+"npm:oxfmt" = "latest"
+"npm:oxlint" = "latest"
+"npm:svgo" = "latest"
+"npm:tombi" = "latest"
+"npm:typescript" = "latest"
+"npm:vercel" = "latest"
+"npm:vscode-langservers-extracted" = "latest"
+"npm:yaml-language-server" = "latest"
