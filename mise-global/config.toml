@@ -10,7 +10,8 @@ python = "3.14"
 rust = "stable"
 # mise bootstrap がサードパーティ tap の cask 定義を読むのに Ruby 3 以上が要る
 ruby = "latest"
-"cargo:https://github.com/wtnbass/miel" = "branch:main"
+# ~/.gitconfig の insteadOf で SSH になるので、cargo 内蔵の git ではなく git コマンドで取得する
+"cargo:https://github.com/wtnbass/miel" = { version = "branch:main", install_env = { CARGO_NET_GIT_FETCH_WITH_CLI = "true" } }
 "npm:@agentclientprotocol/claude-agent-acp" = "latest"
 "npm:@iwe-org/iwe" = "latest"
 "npm:@microsoft/compose-language-service" = "latest"
