@@ -3,6 +3,10 @@ npm.package_manager = "pnpm"
 # プロジェクトの .node-version / .nvmrc / rust-toolchain.toml に従う
 idiomatic_version_file_enable_tools = ["node", "rust"]
 
+[env]
+# ~/.gitconfig の insteadOf で GitHub の URL が SSH になり、cargo 内蔵の git では認証できない
+CARGO_NET_GIT_FETCH_WITH_CLI = "true"
+
 [tools]
 node = "lts"
 pnpm = "latest"
